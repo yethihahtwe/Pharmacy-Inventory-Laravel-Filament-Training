@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Hash;
+use App\Services\Components\AppIcons;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,9 +19,10 @@ use App\Filament\Resources\UserResource\RelationManagers;
 
 class UserResource extends Resource
 {
+    protected static ?string $navigationGroup = 'User Settings';
+    protected static ?string $navigationIcon = AppIcons::USER_ICON;
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
