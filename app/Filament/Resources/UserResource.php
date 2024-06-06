@@ -8,11 +8,11 @@ use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Illuminate\Support\Facades\Hash;
 use App\Services\Components\AppIcons;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
+use App\Services\Components\FormComponents;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
@@ -28,11 +28,29 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name'),
-                TextInput::make('email'),
-                TextInput::make('password')
-                ->dehydrateStateUsing(fn($state) => Hash::make($state)),
-                Toggle::make('is_admin'),
+                Section::make('Name and Email')
+                    ->schema([
+                        FormComponents::userNameInput()->columnSpan(1),
+                        FormComponents::userEmailInput()->columnSpan(1),
+                        FormComponents::userWarehouseSelect()->columnSpan(1),
+                    ])
+                    ->columns(3),
+                Section::make('Password')
+                    ->schema([
+                        FormComponents::userPasswordInput()->columnSpan(1),
+                        FormComponents::userPasswordConfirmationInput(),
+                    ])
+                    ->columns(3),
+                Section::make('Admin')
+                    ->schema([
+                        FormComponents::userAdminInput()->columnSpanFull(),
+                    ]),
+                Section::make('Profile Information')
+                    ->schema([
+                        FormComponents::userPositionInput()->columnSpan(1),
+                        FormComponents::userAvatarUpload()->columnSpan(1),
+                    ])
+                    ->columns(3)
             ]);
     }
 
@@ -40,7 +58,11 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name'),
+                TextColumn::make('email'),
+                TextColumn::make('position'),
+                TextColumn::make('is_admin'),
+                TextColumn::make('warehouse_id'),
             ])
             ->filters([
                 //
