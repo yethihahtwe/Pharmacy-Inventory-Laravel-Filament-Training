@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\UserExporter;
 use Filament\Forms;
 use App\Models\User;
 use Filament\Tables;
@@ -11,6 +12,7 @@ use Filament\Resources\Resource;
 use App\Services\Components\AppIcons;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Actions\ExportAction;
 use Illuminate\Database\Eloquent\Builder;
 use App\Services\Components\FormComponents;
 use App\Filament\Resources\UserResource\Pages;
@@ -84,6 +86,16 @@ class UserResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->headerActions([
+                ExportAction::make()
+                ->exporter(UserExporter::class)
+                ->icon(AppIcons::DOWNLOAD_ICON)
+                ->label('Export Excel')
+                ->color('primary')
+                ->outlined()
+                ->columnMapping(false)
+                ->fileName(fn() => date('d-M-Y') . '-export-users')
             ]);
     }
 
