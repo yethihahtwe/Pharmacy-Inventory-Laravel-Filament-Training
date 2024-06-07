@@ -60,14 +60,24 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('name'),
                 TextColumn::make('email'),
-                TextColumn::make('position'),
-                TextColumn::make('is_admin'),
-                TextColumn::make('warehouse_id'),
+                TextColumn::make('position')
+                ->default('Not specified')
+                ->badge()
+                ->color(fn($state) => $state === 'Not specified' ? 'warning' : 'success'),
+                TextColumn::make('is_admin')
+                ->label('Role')
+                ->badge()
+                ->color(fn($state) => $state == true ? 'success' : 'primary')
+                ->formatStateUsing(fn($state) => $state == true ? 'Admin' : 'User'),
+                TextColumn::make('warehouse_id')
+                ->label('Warehouse/Clinic'),
             ])
+            ->recordUrl(null)
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
