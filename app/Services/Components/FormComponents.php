@@ -35,13 +35,13 @@ class FormComponents
     public static function userPasswordInput()
     {
         return TextInput::make('password')
-            ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-            ->dehydrated(fn ($state) => filled($state))
+            ->dehydrateStateUsing(fn($state) => Hash::make($state))
+            ->dehydrated(fn($state) => filled($state))
             ->placeholder('Please enter password')
             ->password()
             ->confirmed()
             ->revealable()
-            ->required(fn ($livewire) => $livewire instanceof CreateUser);
+            ->required(fn($livewire) => $livewire instanceof CreateUser);
     }
 
     public static function userPasswordConfirmationInput()
@@ -52,7 +52,7 @@ class FormComponents
             ->dehydrated(false)
             ->password()
             ->revealable()
-            ->required(fn ($livewire) => $livewire instanceof CreateUser);
+            ->required(fn($livewire) => $livewire instanceof CreateUser);
     }
     public static function userAdminInput()
     {
@@ -136,11 +136,11 @@ class FormComponents
             ->label(__('Township'))->placeholder('Please select township')
             ->options(function (Get $get) {
                 $townships = Township::query()->where('state_id', $get('state_id'))->pluck('name', 'id');
-                if ($townships && $townships->isNotEmpty()){
+                if ($townships && $townships->isNotEmpty()) {
                     return $townships;
                 }
                 return ['No township available'];
-            } )
+            })
             ->searchable()
             ->preload()
             ->native(false)
@@ -161,14 +161,24 @@ class FormComponents
         return Select::make('parent_id')
             ->label(__('Parent Warehouse'))
             ->placeholder('Please select parent warehouse')
-            ->options(function(Get $get){
+            ->options(function (Get $get) {
                 $currentWarehouseId = $get('id');
                 return Warehouse::where('id', '!=', $currentWarehouseId)->pluck('name', 'id');
             })
             ->searchable()
             ->preload()
             ->native(false)
-            ->required(fn (Get $get): bool => $get('has_parent') == true)
-            ->visible(fn(Get $get):bool => $get('has_parent'));
+            ->required(fn(Get $get): bool => $get('has_parent') == true)
+            ->visible(fn(Get $get): bool => $get('has_parent'));
+    }
+
+    public static function donorInput()
+    {
+        return TextInput::make('name')
+            ->label('Donor Name')
+            ->required()
+            ->maxLength(255)
+            ->unique(ignoreRecord: true)
+            ->placeholder('Please enter donor name');
     }
 }

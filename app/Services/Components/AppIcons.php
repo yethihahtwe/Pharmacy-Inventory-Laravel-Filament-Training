@@ -15,4 +15,6 @@ class AppIcons
     public const TOWNSHIP_ICON = 'heroicon-o-map';
 
     public const WAREHOUSE_ICON = 'heroicon-o-building-storefront';
+
+    public const DONOR_ICON = 'heroicon-o-building-library';
 }
