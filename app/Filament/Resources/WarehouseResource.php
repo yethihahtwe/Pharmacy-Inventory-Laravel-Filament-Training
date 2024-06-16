@@ -68,7 +68,7 @@ class WarehouseResource extends Resource
                     ->color(fn (string $state): string => $state == 'No parent warehouse' ? 'success' : 'primary')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('organization.name')
+                TextColumn::make('organization.abbr')
                     ->label('Organization')
                     ->badge()
                     ->color('info')
