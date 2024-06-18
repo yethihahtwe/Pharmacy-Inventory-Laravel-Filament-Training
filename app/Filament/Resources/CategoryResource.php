@@ -2,25 +2,26 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\DonorResource\Pages;
-use App\Filament\Resources\DonorResource\RelationManagers;
-use App\Models\Donor;
+use Filament\Forms;
+use Filament\Tables;
+use App\Models\Category;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use App\Services\Components\AppIcons;
+use Filament\Forms\Components\Section;
+use Illuminate\Database\Eloquent\Builder;
 use App\Services\Components\FormComponents;
 use App\Services\Components\TableComponents;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\CategoryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\CategoryResource\RelationManagers;
 
-class DonorResource extends Resource
+class CategoryResource extends Resource
 {
-    protected static ?string $model = Donor::class;
+    protected static ?string $model = Category::class;
 
-    protected static ?string $navigationIcon = AppIcons::DONOR_ICON;
+    protected static ?string $navigationIcon = AppIcons::CATEGORY_ICON;
 
     protected static ?string $navigationGroup = 'Inventory Settings';
 
@@ -28,7 +29,16 @@ class DonorResource extends Resource
     {
         return $form
             ->schema([
-                FormComponents::donorInput(),
+                Section::make('Item Category')
+                ->schema([
+                    FormComponents::masterTextInput(
+                        'name',
+                        'Category',
+                        true,
+                        'Please enter category'
+                    ),
+                ])
+                ->columnSpan(1),
             ]);
     }
 
@@ -38,7 +48,7 @@ class DonorResource extends Resource
             ->columns([
                 TableComponents::masterTextColumn(
                     'name',
-                    'Donor',
+                    'Category',
                     false,
                     null,
                     true,
@@ -76,9 +86,9 @@ class DonorResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListDonors::route('/'),
-            'create' => Pages\CreateDonor::route('/create'),
-            'edit' => Pages\EditDonor::route('/{record}/edit'),
+            'index' => Pages\ListCategories::route('/'),
+            'create' => Pages\CreateCategory::route('/create'),
+            'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
     }
 }

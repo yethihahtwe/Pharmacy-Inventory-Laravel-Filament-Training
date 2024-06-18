@@ -17,4 +17,6 @@ class AppIcons
     public const WAREHOUSE_ICON = 'heroicon-o-building-storefront';
 
     public const DONOR_ICON = 'heroicon-o-building-library';
+
+    public const CATEGORY_ICON = 'heroicon-o-queue-list';
 }

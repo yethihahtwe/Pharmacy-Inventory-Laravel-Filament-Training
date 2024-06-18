@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\DonorResource\Pages;
+namespace App\Filament\Resources\CategoryResource\Pages;
 
-use App\Filament\Resources\DonorResource;
+use App\Filament\Resources\CategoryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditDonor extends EditRecord
+class EditCategory extends EditRecord
 {
-    protected static string $resource = DonorResource::class;
+    protected static string $resource = CategoryResource::class;
 
     protected function getHeaderActions(): array
     {
@@ -17,13 +17,13 @@ class EditDonor extends EditRecord
         ];
     }
 
-    protected function getRedirectUrl(): string
+    protected function getRedirectUrl():string
     {
         return $this->getResource()::getUrl('index');
     }
 
     protected function getSavedNotificationTitle(): string
     {
-        return 'Donor successfully updated';
+        return 'Category successfully updated.';
     }
 }

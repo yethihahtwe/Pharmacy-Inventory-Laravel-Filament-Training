@@ -16,6 +16,16 @@ use App\Filament\Resources\UserResource\Pages\CreateUser;
 
 class FormComponents
 {
+    // general purpose text input
+    public static function masterTextInput($textInputName, $textInputLabel, $isRequired, $textInputPlaceholder)
+    {
+        return TextInput::make($textInputName)
+        ->label($textInputLabel)
+        ->required($isRequired)
+        ->maxLength(255)
+        ->placeholder($textInputPlaceholder)
+        ;
+    }
     public static function userNameInput()
     {
         return TextInput::make('name')

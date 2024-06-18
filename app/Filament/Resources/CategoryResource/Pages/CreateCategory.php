@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\DonorResource\Pages;
+namespace App\Filament\Resources\CategoryResource\Pages;
 
-use App\Filament\Resources\DonorResource;
+use App\Filament\Resources\CategoryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateDonor extends CreateRecord
+class CreateCategory extends CreateRecord
 {
-    protected static string $resource = DonorResource::class;
+    protected static string $resource = CategoryResource::class;
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
@@ -23,6 +23,6 @@ class CreateDonor extends CreateRecord
 
     protected function getCreatedNotificationTitle(): string
     {
-        return 'Donor successfully created';
+        return 'Category successfully created.';
     }
 }
